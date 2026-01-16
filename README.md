@@ -1,1 +1,11 @@
-# repo-template
+
+  # Turnuva Web Sitesi Tasarımı
+
+  This is a code bundle for Turnuva Web Sitesi Tasarımı. The original project is available at https://www.figma.com/design/kT34X4KpdVlIxeMB0F1dz5/Turnuva-Web-Sitesi-Tasar%C4%B1m%C4%B1.
+
+  ## Running the code
+
+  Run `npm i` to install the dependencies.
+
+  Run `npm run dev` to start the development server.
+  
