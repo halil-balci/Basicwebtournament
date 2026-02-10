@@ -33,20 +33,22 @@ export function AdminLoginDialog({ open, onClose, onLogin }: AdminLoginDialogPro
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent className="bg-slate-800 border-slate-700 text-white">
+      <DialogContent className="bg-gradient-to-br from-slate-900 to-slate-800 border-slate-700/50 text-white rounded-2xl max-w-md">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
-            <ShieldCheck className="size-5 text-orange-500" />
+          <DialogTitle className="flex items-center gap-2 text-xl sm:text-2xl">
+            <div className="bg-gradient-to-br from-orange-500 to-orange-600 p-2 rounded-lg">
+              <ShieldCheck className="size-5 text-white" />
+            </div>
             Yönetici Girişi
           </DialogTitle>
-          <DialogDescription className="text-slate-400">
+          <DialogDescription className="text-slate-400 text-sm sm:text-base">
             Skor girişi yapmak için yönetici kodunu girin
           </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-4 py-4">
           <div className="space-y-2">
-            <Label htmlFor="adminCode">Yönetici Kodu</Label>
+            <Label htmlFor="adminCode" className="text-sm font-semibold">Yönetici Kodu</Label>
             <Input
               id="adminCode"
               type="password"
@@ -56,21 +58,25 @@ export function AdminLoginDialog({ open, onClose, onLogin }: AdminLoginDialogPro
                 setError('');
               }}
               onKeyPress={(e) => e.key === 'Enter' && handleSubmit()}
-              className="bg-slate-700 border-slate-600 text-white"
+              className="bg-slate-700 border-slate-600 text-white h-12 text-base rounded-xl focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20"
               placeholder="Kodu girin"
             />
-            {error && <p className="text-red-400 text-sm">{error}</p>}
+            {error && <p className="text-red-400 text-xs sm:text-sm">{error}</p>}
           </div>
         </div>
 
-        <DialogFooter>
-          <Button variant="outline" onClick={onClose} className="border-slate-600 text-slate-300">
+        <DialogFooter className="flex-col sm:flex-row gap-2 sm:gap-0">
+          <Button 
+            variant="outline" 
+            onClick={onClose} 
+            className="border-slate-700 text-slate-300 hover:bg-slate-800 h-12 rounded-xl w-full sm:w-auto"
+          >
             İptal
           </Button>
           <Button
             onClick={handleSubmit}
             disabled={!code.trim()}
-            className="bg-orange-500 hover:bg-orange-600"
+            className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 disabled:opacity-50 disabled:cursor-not-allowed h-12 rounded-xl w-full sm:w-auto shadow-lg"
           >
             Giriş Yap
           </Button>

@@ -34,57 +34,76 @@ export function TournamentBracket({ matches, onEditMatch, isAdmin }: TournamentB
   };
 
   return (
-    <div className="w-full overflow-x-auto pb-8">
-      <div className="flex gap-8 min-w-max p-4">
+    <div className="w-full overflow-x-auto pb-4">
+      <div className="flex gap-4 sm:gap-6 lg:gap-8 min-w-max p-2 sm:p-4">
         {Array.from({ length: rounds }).map((_, roundIndex) => {
           const roundMatches = getRoundMatches(roundIndex);
           return (
-            <div key={roundIndex} className="flex flex-col gap-4" style={{ minWidth: '300px' }}>
-              <div className="flex items-center gap-2 mb-2">
-                {roundIndex === rounds - 1 && <Trophy className="size-5 text-yellow-500" />}
-                <h3 className="font-semibold text-white text-lg">
+            <div key={roundIndex} className="flex flex-col gap-3 sm:gap-4" style={{ minWidth: '280px' }}>
+              <div className="flex items-center gap-2 mb-1 sm:mb-2">
+                {roundIndex === rounds - 1 && (
+                  <div className="bg-gradient-to-br from-yellow-500 to-orange-500 p-1.5 rounded-lg">
+                    <Trophy className="size-4 sm:size-5 text-white" />
+                  </div>
+                )}
+                <h3 className="font-bold text-white text-base sm:text-lg">
                   {getRoundName(roundIndex, rounds)}
                 </h3>
               </div>
               
-              <div className="flex flex-col gap-6" style={{ marginTop: `${roundIndex * 40}px` }}>
+              <div 
+                className="flex flex-col gap-4 sm:gap-6" 
+                style={{ marginTop: roundIndex > 0 ? `${roundIndex * 30}px` : '0' }}
+              >
                 {roundMatches.map((match) => (
                   <Card
                     key={match.id}
-                    className="bg-slate-800/70 border-slate-700 p-4 backdrop-blur-sm"
+                    className="bg-gradient-to-br from-slate-800/70 to-slate-900/70 border-slate-700/50 p-3 sm:p-4 backdrop-blur-sm shadow-lg rounded-xl"
                   >
                     <div className="space-y-2">
                       {match.team1 ? (
-                        <div className={`flex items-center justify-between p-3 rounded ${
-                          match.winner === match.team1 ? 'bg-green-900/30 border border-green-700' : 'bg-slate-700/50'
+                        <div className={`flex items-center justify-between p-2.5 sm:p-3 rounded-lg transition-all ${
+                          match.winner === match.team1 
+                            ? 'bg-gradient-to-r from-green-900/40 to-green-800/40 border border-green-600/50 shadow-lg shadow-green-500/10' 
+                            : 'bg-slate-700/50 hover:bg-slate-700/70'
                         }`}>
-                          <span className="text-white font-medium">{match.team1}</span>
-                          <span className="text-white font-bold text-lg">
+                          <span className="text-white font-medium text-sm sm:text-base truncate pr-2">
+                            {match.team1}
+                          </span>
+                          <span className={`font-bold text-lg sm:text-xl shrink-0 ${
+                            match.winner === match.team1 ? 'text-green-400' : 'text-white'
+                          }`}>
                             {match.score1 !== null ? match.score1 : '-'}
                           </span>
                         </div>
                       ) : (
-                        <div className="bg-slate-700/30 p-3 rounded border border-dashed border-slate-600">
-                          <span className="text-slate-500 text-sm italic">Henüz belirli değil</span>
+                        <div className="bg-slate-700/30 p-2.5 sm:p-3 rounded-lg border border-dashed border-slate-600">
+                          <span className="text-slate-500 text-xs sm:text-sm italic">Henüz belirli değil</span>
                         </div>
                       )}
                       
                       {match.team2 ? (
-                        <div className={`flex items-center justify-between p-3 rounded ${
-                          match.winner === match.team2 ? 'bg-green-900/30 border border-green-700' : 'bg-slate-700/50'
+                        <div className={`flex items-center justify-between p-2.5 sm:p-3 rounded-lg transition-all ${
+                          match.winner === match.team2 
+                            ? 'bg-gradient-to-r from-green-900/40 to-green-800/40 border border-green-600/50 shadow-lg shadow-green-500/10' 
+                            : 'bg-slate-700/50 hover:bg-slate-700/70'
                         }`}>
-                          <span className="text-white font-medium">{match.team2}</span>
-                          <span className="text-white font-bold text-lg">
+                          <span className="text-white font-medium text-sm sm:text-base truncate pr-2">
+                            {match.team2}
+                          </span>
+                          <span className={`font-bold text-lg sm:text-xl shrink-0 ${
+                            match.winner === match.team2 ? 'text-green-400' : 'text-white'
+                          }`}>
                             {match.score2 !== null ? match.score2 : '-'}
                           </span>
                         </div>
                       ) : match.team1 && match.round === 0 ? (
-                        <div className="bg-yellow-900/20 p-3 rounded border border-dashed border-yellow-700">
-                          <span className="text-yellow-500 text-sm italic">Rakipsiz geçiş (Bye)</span>
+                        <div className="bg-gradient-to-r from-yellow-900/20 to-orange-900/20 p-2.5 sm:p-3 rounded-lg border border-dashed border-yellow-600/50">
+                          <span className="text-yellow-400 text-xs sm:text-sm italic">Rakipsiz geçiş (Bye)</span>
                         </div>
                       ) : (
-                        <div className="bg-slate-700/30 p-3 rounded border border-dashed border-slate-600">
-                          <span className="text-slate-500 text-sm italic">Henüz belirli değil</span>
+                        <div className="bg-slate-700/30 p-2.5 sm:p-3 rounded-lg border border-dashed border-slate-600">
+                          <span className="text-slate-500 text-xs sm:text-sm italic">Henüz belirli değil</span>
                         </div>
                       )}
 
@@ -93,10 +112,10 @@ export function TournamentBracket({ matches, onEditMatch, isAdmin }: TournamentB
                           onClick={() => onEditMatch(match)}
                           variant="outline"
                           size="sm"
-                          className="w-full mt-2 border-slate-600 text-slate-300 hover:bg-slate-700"
+                          className="w-full mt-2 border-slate-600 bg-slate-800/50 text-slate-300 hover:bg-orange-500 hover:text-white hover:border-orange-500 transition-all h-9 rounded-lg"
                         >
                           <Edit className="size-4 mr-2" />
-                          Skor Gir
+                          <span className="text-xs sm:text-sm">Skor Gir</span>
                         </Button>
                       )}
                     </div>

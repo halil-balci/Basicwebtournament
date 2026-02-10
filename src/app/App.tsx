@@ -363,6 +363,7 @@ export default function App() {
         open={createDialogOpen}
         onClose={() => setCreateDialogOpen(false)}
         onCreateTournament={handleCreateTournament}
+        existingTournaments={tournaments}
       />
 
       <Toaster position="top-right" theme="dark" />

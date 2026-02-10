@@ -38,66 +38,70 @@ export function LeagueTable({ standings, matches, onEditMatch, isAdmin }: League
   });
 
   const getPositionIcon = (index: number) => {
-    if (index === 0) return <Trophy className="size-5 text-yellow-500" />;
-    if (index === 1) return <Medal className="size-5 text-slate-400" />;
-    if (index === 2) return <Medal className="size-5 text-orange-700" />;
+    if (index === 0) return <Trophy className="size-4 sm:size-5 text-yellow-500" />;
+    if (index === 1) return <Medal className="size-4 sm:size-5 text-slate-400" />;
+    if (index === 2) return <Medal className="size-4 sm:size-5 text-orange-700" />;
     return null;
   };
 
   return (
-    <div className="space-y-6">
-      <Card className="bg-slate-800/70 border-slate-700 backdrop-blur-sm">
-        <CardHeader>
-          <CardTitle className="text-white flex items-center gap-2">
-            <Trophy className="size-6 text-orange-500" />
+    <div className="space-y-4 sm:space-y-6">
+      <Card className="bg-gradient-to-br from-slate-800/70 to-slate-900/70 border-slate-700/50 backdrop-blur-sm shadow-lg rounded-2xl">
+        <CardHeader className="pb-3 sm:pb-4">
+          <CardTitle className="text-white flex items-center gap-2 text-lg sm:text-xl">
+            <div className="bg-gradient-to-br from-orange-500 to-orange-600 p-1.5 sm:p-2 rounded-lg">
+              <Trophy className="size-4 sm:size-5 text-white" />
+            </div>
             Puan Durumu
           </CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-0 sm:p-6 sm:pt-0">
           <div className="overflow-x-auto">
             <Table>
               <TableHeader>
-                <TableRow className="border-slate-700 hover:bg-slate-700/50">
-                  <TableHead className="text-slate-300">#</TableHead>
-                  <TableHead className="text-slate-300">Takım</TableHead>
-                  <TableHead className="text-slate-300 text-center">O</TableHead>
-                  <TableHead className="text-slate-300 text-center">G</TableHead>
-                  <TableHead className="text-slate-300 text-center">B</TableHead>
-                  <TableHead className="text-slate-300 text-center">M</TableHead>
-                  <TableHead className="text-slate-300 text-center">A</TableHead>
-                  <TableHead className="text-slate-300 text-center">Y</TableHead>
-                  <TableHead className="text-slate-300 text-center">AV</TableHead>
-                  <TableHead className="text-slate-300 text-center font-bold">P</TableHead>
+                <TableRow className="border-slate-700/50 hover:bg-slate-700/30">
+                  <TableHead className="text-slate-300 text-xs sm:text-sm px-2 sm:px-4">#</TableHead>
+                  <TableHead className="text-slate-300 text-xs sm:text-sm px-2 sm:px-4">Takım</TableHead>
+                  <TableHead className="text-slate-300 text-center text-xs sm:text-sm px-1 sm:px-4">O</TableHead>
+                  <TableHead className="text-slate-300 text-center text-xs sm:text-sm px-1 sm:px-4 hidden sm:table-cell">G</TableHead>
+                  <TableHead className="text-slate-300 text-center text-xs sm:text-sm px-1 sm:px-4 hidden sm:table-cell">B</TableHead>
+                  <TableHead className="text-slate-300 text-center text-xs sm:text-sm px-1 sm:px-4 hidden sm:table-cell">M</TableHead>
+                  <TableHead className="text-slate-300 text-center text-xs sm:text-sm px-1 sm:px-4 hidden md:table-cell">A</TableHead>
+                  <TableHead className="text-slate-300 text-center text-xs sm:text-sm px-1 sm:px-4 hidden md:table-cell">Y</TableHead>
+                  <TableHead className="text-slate-300 text-center text-xs sm:text-sm px-1 sm:px-4">AV</TableHead>
+                  <TableHead className="text-slate-300 text-center font-bold text-xs sm:text-sm px-2 sm:px-4">P</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {sortedStandings.map((standing, index) => (
                   <TableRow
                     key={standing.team}
-                    className={`border-slate-700 hover:bg-slate-700/50 ${
-                      index === 0 ? 'bg-green-900/20' : ''
+                    className={`border-slate-700/50 hover:bg-slate-700/30 transition-colors ${
+                      index === 0 ? 'bg-gradient-to-r from-green-900/20 to-green-800/20' : ''
                     }`}
                   >
-                    <TableCell className="text-white font-medium">
-                      <div className="flex items-center gap-2">
+                    <TableCell className="text-white font-medium text-xs sm:text-sm px-2 sm:px-4">
+                      <div className="flex items-center gap-1 sm:gap-2">
                         {getPositionIcon(index)}
-                        {index + 1}
+                        <span>{index + 1}</span>
                       </div>
                     </TableCell>
-                    <TableCell className="text-white font-semibold">{standing.team}</TableCell>
-                    <TableCell className="text-slate-300 text-center">{standing.played}</TableCell>
-                    <TableCell className="text-slate-300 text-center">{standing.won}</TableCell>
-                    <TableCell className="text-slate-300 text-center">{standing.drawn}</TableCell>
-                    <TableCell className="text-slate-300 text-center">{standing.lost}</TableCell>
-                    <TableCell className="text-slate-300 text-center">{standing.goalsFor}</TableCell>
-                    <TableCell className="text-slate-300 text-center">{standing.goalsAgainst}</TableCell>
-                    <TableCell className={`text-center font-medium ${
+                    <TableCell className="text-white font-semibold text-xs sm:text-base px-2 sm:px-4 truncate max-w-[120px] sm:max-w-none">
+                      {standing.team}
+                    </TableCell>
+                    <TableCell className="text-slate-300 text-center text-xs sm:text-sm px-1 sm:px-4">{standing.played}</TableCell>
+                    <TableCell className="text-slate-300 text-center text-xs sm:text-sm px-1 sm:px-4 hidden sm:table-cell">{standing.won}</TableCell>
+                    <TableCell className="text-slate-300 text-center text-xs sm:text-sm px-1 sm:px-4 hidden sm:table-cell">{standing.drawn}</TableCell>
+                    <TableCell className="text-slate-300 text-center text-xs sm:text-sm px-1 sm:px-4 hidden sm:table-cell">{standing.lost}</TableCell>
+                    <TableCell className="text-slate-300 text-center text-xs sm:text-sm px-1 sm:px-4 hidden md:table-cell">{standing.goalsFor}</TableCell>
+                    <TableCell className="text-slate-300 text-center text-xs sm:text-sm px-1 sm:px-4 hidden md:table-cell">{standing.goalsAgainst}</TableCell>
+                    <TableCell className={`text-center font-medium text-xs sm:text-sm px-1 sm:px-4 ${
                       standing.goalDifference > 0 ? 'text-green-400' : 
                       standing.goalDifference < 0 ? 'text-red-400' : 'text-slate-300'
                     }`}>
                       {standing.goalDifference > 0 ? '+' : ''}{standing.goalDifference}
                     </TableCell>
-                    <TableCell className="text-white font-bold text-center text-lg">
+                    <TableCell className="text-white font-bold text-center text-base sm:text-lg px-2 sm:px-4">
                       {standing.points}
                     </TableCell>
                   </TableRow>
@@ -108,39 +112,43 @@ export function LeagueTable({ standings, matches, onEditMatch, isAdmin }: League
         </CardContent>
       </Card>
 
-      <Card className="bg-slate-800/70 border-slate-700 backdrop-blur-sm">
-        <CardHeader>
-          <CardTitle className="text-white">Maçlar</CardTitle>
+      <Card className="bg-gradient-to-br from-slate-800/70 to-slate-900/70 border-slate-700/50 backdrop-blur-sm shadow-lg rounded-2xl">
+        <CardHeader className="pb-3 sm:pb-4">
+          <CardTitle className="text-white text-lg sm:text-xl">Maçlar</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="space-y-3">
+          <div className="space-y-2 sm:space-y-3">
             {matches.map((match) => (
               <div
                 key={match.id}
-                className="flex items-center justify-between bg-slate-700/50 p-4 rounded-lg"
+                className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 bg-slate-700/50 p-3 sm:p-4 rounded-xl hover:bg-slate-700/70 transition-colors"
               >
-                <div className="flex items-center gap-4 flex-1">
-                  <span className="text-white font-medium min-w-[150px] text-right">{match.team1}</span>
-                  <div className="flex items-center gap-3 bg-slate-800 px-4 py-2 rounded">
-                    <span className="text-white font-bold text-lg">
+                <div className="flex items-center justify-between sm:justify-start gap-2 sm:gap-4 flex-1">
+                  <span className="text-white font-medium text-sm sm:text-base flex-1 sm:flex-none sm:min-w-[150px] sm:text-right truncate">
+                    {match.team1}
+                  </span>
+                  <div className="flex items-center gap-2 sm:gap-3 bg-slate-800 px-3 sm:px-4 py-2 rounded-lg shrink-0">
+                    <span className="text-white font-bold text-base sm:text-lg">
                       {match.score1 !== null ? match.score1 : '-'}
                     </span>
                     <span className="text-slate-500">:</span>
-                    <span className="text-white font-bold text-lg">
+                    <span className="text-white font-bold text-base sm:text-lg">
                       {match.score2 !== null ? match.score2 : '-'}
                     </span>
                   </div>
-                  <span className="text-white font-medium min-w-[150px]">{match.team2}</span>
+                  <span className="text-white font-medium text-sm sm:text-base flex-1 sm:flex-none sm:min-w-[150px] truncate">
+                    {match.team2}
+                  </span>
                 </div>
                 {isAdmin && (
                   <Button
                     onClick={() => onEditMatch(match)}
                     variant="outline"
                     size="sm"
-                    className="border-slate-600 text-slate-300 hover:bg-slate-700 ml-4"
+                    className="border-slate-600 bg-slate-800/50 text-slate-300 hover:bg-orange-500 hover:text-white hover:border-orange-500 transition-all h-9 rounded-lg w-full sm:w-auto"
                   >
                     <Edit className="size-4 mr-2" />
-                    Skor Gir
+                    <span className="text-xs sm:text-sm">Skor Gir</span>
                   </Button>
                 )}
               </div>

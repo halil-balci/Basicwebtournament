@@ -27,60 +27,74 @@ export function TournamentView({
   children,
 }: TournamentViewProps) {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 p-6">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center gap-4">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-950">
+      {/* Mobile-optimized Header */}
+      <div className="sticky top-0 z-50 bg-gradient-to-b from-slate-900/95 to-slate-900/80 backdrop-blur-xl border-b border-slate-800/50">
+        <div className="px-4 sm:px-6 py-4">
+          <div className="flex items-start justify-between gap-3 mb-3">
             <Button
               onClick={onBack}
               variant="outline"
-              className="border-slate-600 text-slate-300 hover:bg-slate-700"
+              size="sm"
+              className="border-slate-700 text-slate-300 hover:bg-slate-800 h-10 rounded-xl shrink-0"
             >
-              <ArrowLeft className="size-4 mr-2" />
-              Geri
+              <ArrowLeft className="size-4 sm:mr-2" />
+              <span className="hidden sm:inline">Geri</span>
             </Button>
-            <div>
-              <h1 className="text-3xl font-bold text-white">{tournament.name}</h1>
-              <div className="flex items-center gap-2 mt-1">
-                <Badge variant={tournament.format === 'bracket' ? 'default' : 'secondary'}>
-                  {tournament.format === 'bracket' ? 'Eleme Usulü' : 'Lig Sistemi'}
+            
+            <div className="flex-1 min-w-0">
+              <h1 className="text-lg sm:text-2xl font-bold text-white truncate">{tournament.name}</h1>
+              <div className="flex flex-wrap items-center gap-2 mt-2">
+                <Badge 
+                  variant={tournament.format === 'bracket' ? 'default' : 'secondary'}
+                  className="text-xs"
+                >
+                  {tournament.format === 'bracket' ? 'Eleme' : 'Lig'}
                 </Badge>
                 <Badge 
                   variant={tournament.status === 'finished' ? 'destructive' : 'default'}
-                  className={tournament.status === 'finished' ? 'bg-green-600 hover:bg-green-700' : 'bg-blue-600 hover:bg-blue-700'}
+                  className={`text-xs ${tournament.status === 'finished' ? 'bg-green-600 hover:bg-green-700' : 'bg-blue-600 hover:bg-blue-700'}`}
                 >
                   {tournament.status === 'finished' ? 'Bitti' : 'Devam Ediyor'}
                 </Badge>
-                <span className="text-slate-400">{tournament.teams.length} Takım</span>
+                <span className="text-slate-400 text-xs">{tournament.teams.length} Takım</span>
               </div>
             </div>
           </div>
-          
-          <div>
+
+          {/* Admin Button */}
+          <div className="w-full">
             {isAdmin ? (
               <Button
                 onClick={onAdminLogout}
                 variant="outline"
-                className="border-green-600 text-green-400 hover:bg-green-900/20"
+                size="sm"
+                className="border-green-700 bg-green-950/30 text-green-400 hover:bg-green-900/40 w-full sm:w-auto h-10 rounded-xl"
               >
                 <ShieldCheck className="size-4 mr-2" />
-                Yönetici Modundasınız
+                <span className="text-xs sm:text-sm">Yönetici Modundasınız</span>
                 <LogOut className="size-4 ml-2" />
               </Button>
             ) : (
               <Button
                 onClick={onAdminLogin}
-                className="bg-orange-500 hover:bg-orange-600"
+                size="sm"
+                className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 w-full sm:w-auto h-10 rounded-xl shadow-lg"
               >
                 <ShieldCheck className="size-4 mr-2" />
-                Yönetici Girişi
+                <span className="text-xs sm:text-sm">Yönetici Girişi</span>
               </Button>
             )}
           </div>
         </div>
+      </div>
 
-        <div className="bg-slate-800/30 backdrop-blur-sm rounded-lg p-6">
-          {children}
+      {/* Content */}
+      <div className="px-4 sm:px-6 py-4 sm:py-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="bg-gradient-to-br from-slate-800/30 to-slate-900/30 backdrop-blur-sm rounded-2xl p-4 sm:p-6 border border-slate-700/50">
+            {children}
+          </div>
         </div>
       </div>
     </div>
